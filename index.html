@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fancy Cereal Party</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Fancy Cereal Party</h1>
+      <p class="subtitle">Breakfast with rare American cereals</p>
+    </header>
+
+    <!-- Step 1: Name -->
+    <section id="step-name" class="step active">
+      <div class="section">
+        <label for="name-input">Your Name</label>
+        <input type="text" id="name-input" placeholder="Name" autocomplete="off">
+      </div>
+      <button type="button" class="btn primary" id="name-btn" onclick="app.checkName()">Continue</button>
+    </section>
+
+    <!-- Step 2: Selections -->
+    <section id="step-form" class="step">
+      <p class="greeting">Hi <span id="display-name"></span> <a href="#" onclick="app.goBack(); return false;">(not you?)</a></p>
+      <p id="welcome-back" class="welcome-back hidden">Welcome back! Here's what you picked last time — feel free to change it.</p>
+
+      <form id="party-form" onsubmit="return app.submit(event)">
+        <!-- Dates -->
+        <div class="section">
+          <label>When can you make it?</label>
+          <p class="hint">Select all dates that work</p>
+          <div id="dates-grid" class="dates-grid"></div>
+        </div>
+
+        <!-- Cereals -->
+        <div class="section">
+          <label>Pick up to 2 cereals</label>
+          <p class="hint">The ones you're most curious to try</p>
+          <div id="cereals-grid" class="cereals-grid"></div>
+          <p id="cereal-count" class="selection-count">Selected: 0/2</p>
+        </div>
+
+        <!-- Drinks -->
+        <div class="section drinks-section">
+          <div class="drink-group">
+            <label>🥛 Milk</label>
+            <div class="options-row">
+              <label class="option-card">
+                <input type="radio" name="milk" value="regular">
+                <span>🥛 Regular</span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="milk" value="lactose-free">
+                <span>🥛 Lactose-free</span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="milk" value="almond">
+                <span>🌰 Almond</span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="milk" value="oat">
+                <span>🌾 Oat</span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="milk" value="none">
+                <span>🚫 None</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="drink-group">
+            <label>🧃 Juice</label>
+            <div class="options-row">
+              <label class="option-card">
+                <input type="radio" name="juice" value="orange">
+                <span>🍊 Orange</span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="juice" value="apple">
+                <span>🍎 Apple</span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="juice" value="none">
+                <span>🚫 None</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn primary" id="submit-btn">Submit</button>
+      </form>
+    </section>
+
+    <!-- Thank You / Results -->
+    <section id="step-thanks" class="step">
+      <div id="thanks-new" class="thanks">
+        <h2>Thanks!</h2>
+        <p>See you at the party</p>
+      </div>
+      <div id="thanks-returning" class="thanks hidden">
+        <h2>Hi <span id="stats-name"></span>!</h2>
+        <p>You're already signed up</p>
+        <a href="#" class="edit-link" onclick="app.goToEdit(); return false;">Edit your choices</a>
+      </div>
+      <div id="stats" class="stats hidden">
+        <h3>Current Results</h3>
+        <div id="stats-dates" class="stats-section"></div>
+        <div id="stats-cereals" class="stats-section"></div>
+        <div id="stats-drinks" class="stats-section"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="app.closeLightbox()">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
