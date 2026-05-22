@@ -397,6 +397,12 @@ const app = {
     document.getElementById('step-form').classList.remove('active');
     document.getElementById('step-thanks').classList.add('active');
 
+    // Show stats loading state immediately
+    document.getElementById('stats').classList.remove('hidden');
+    document.getElementById('stats-dates').innerHTML = '<p>Loading results...</p>';
+    document.getElementById('stats-cereals').innerHTML = '';
+    document.getElementById('stats-drinks').innerHTML = '';
+
     // Load stats
     this.loadStats();
 
