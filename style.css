@@ -23,6 +23,12 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
+  padding: 40px 20px;
+  margin: -30px -30px 30px -30px;
+  border-radius: 20px 20px 0 0;
+  background:
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.95)),
+    url('og-image.jpg') center/cover;
 }
 
 h1 {
