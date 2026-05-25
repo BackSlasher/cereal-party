@@ -27,8 +27,26 @@
       <p class="subtitle">Breakfast with rare American cereals</p>
     </header>
 
+    <!-- Event Finalized -->
+    <section id="step-event" class="step active">
+      <div class="event-card">
+        <h2>It's happening!</h2>
+        <div class="event-date">
+          <span class="event-day">Friday</span>
+          <span class="event-num">June 12</span>
+          <span class="event-time">19:00</span>
+        </div>
+        <a href="#" class="btn secondary" onclick="app.downloadICS(); return false;">📅 Add to Calendar</a>
+      </div>
+
+      <div class="section">
+        <h3>🥣 The Lineup</h3>
+        <div id="finalist-cereals" class="finalist-cereals"></div>
+      </div>
+    </section>
+
     <!-- Step 1: Name -->
-    <section id="step-name" class="step active">
+    <section id="step-name" class="step">
       <div class="section">
         <label for="name-input">Your Name</label>
         <input type="text" id="name-input" placeholder="Name" autocomplete="off">

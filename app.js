@@ -11,6 +11,14 @@ const CONFIG = {
   ],
 
   MAX_CEREALS: 2,
+
+  // Event mode - set to show finalized event instead of voting
+  EVENT: {
+    finalized: true,
+    date: '2026-06-12',
+    time: '19:00',
+    cereals: ['reeses-puffs', 'french-toast-crunch', 'cinnamon-toast', 'count-chocula'],
+  },
 };
 
 const CEREALS = [
@@ -41,6 +49,15 @@ const app = {
   },
 
   init() {
+    if (CONFIG.EVENT?.finalized) {
+      this.renderFinalists();
+      return;
+    }
+
+    // Voting mode
+    document.getElementById('step-event').classList.remove('active');
+    document.getElementById('step-name').classList.add('active');
+
     this.renderDates();
     this.renderCereals();
 
@@ -51,6 +68,46 @@ const app = {
       document.getElementById('name-input').value = name;
       this.checkNameForStats(name);
     }
+  },
+
+  renderFinalists() {
+    const grid = document.getElementById('finalist-cereals');
+    const finalists = CONFIG.EVENT.cereals
+      .map(id => CEREALS.find(c => c.id === id))
+      .filter(Boolean);
+
+    grid.innerHTML = finalists.map(cereal => `
+      <div class="finalist-card">
+        <img src="${cereal.img}" alt="${cereal.name}">
+        <div class="finalist-name">${cereal.name}</div>
+      </div>
+    `).join('');
+  },
+
+  downloadICS() {
+    const event = CONFIG.EVENT;
+    const date = event.date.replace(/-/g, '');
+    const startTime = event.time.replace(':', '') + '00';
+    const endTime = '2200' + '00'; // Assume 3 hours
+
+    const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Cereal Party//EN
+BEGIN:VEVENT
+DTSTART:${date}T${startTime}
+DTEND:${date}T${endTime}
+SUMMARY:Fancy Cereal Party 🥣
+DESCRIPTION:Breakfast cereals: ${CONFIG.EVENT.cereals.map(id => CEREALS.find(c => c.id === id)?.name).join(', ')}
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([ics], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cereal-party.ics';
+    a.click();
+    URL.revokeObjectURL(url);
   },
 
   renderDates() {
